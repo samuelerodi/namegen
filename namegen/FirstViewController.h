@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Model.h"
 @interface FirstViewController : UIViewController
 
 

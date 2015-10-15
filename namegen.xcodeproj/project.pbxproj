@@ -16,6 +16,9 @@
 		22827A5B1BD05D29001DA6C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22827A591BD05D29001DA6C1 /* LaunchScreen.storyboard */; };
 		22827A661BD05D29001DA6C1 /* namegenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22827A651BD05D29001DA6C1 /* namegenTests.m */; };
 		22827A711BD05D29001DA6C1 /* namegenUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22827A701BD05D29001DA6C1 /* namegenUITests.m */; };
+		22827A7F1BD05DF3001DA6C1 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 22827A7E1BD05DF3001DA6C1 /* Model.m */; settings = {ASSET_TAGS = (); }; };
+		22827A841BD060C3001DA6C1 /* rsc in Resources */ = {isa = PBXBuildFile; fileRef = 22827A831BD060C3001DA6C1 /* rsc */; settings = {ASSET_TAGS = (); }; };
+		22827A861BD061BA001DA6C1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22827A851BD061BA001DA6C1 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,10 @@
 		22827A6C1BD05D29001DA6C1 /* namegenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = namegenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22827A701BD05D29001DA6C1 /* namegenUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = namegenUITests.m; sourceTree = "<group>"; };
 		22827A721BD05D29001DA6C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22827A7E1BD05DF3001DA6C1 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		22827A831BD060C3001DA6C1 /* rsc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rsc; sourceTree = "<group>"; };
+		22827A851BD061BA001DA6C1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		22827A871BD0673E001DA6C1 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22827A861BD061BA001DA6C1 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +92,7 @@
 		22827A3C1BD05D29001DA6C1 = {
 			isa = PBXGroup;
 			children = (
+				22827A851BD061BA001DA6C1 /* Accelerate.framework */,
 				22827A471BD05D29001DA6C1 /* namegen */,
 				22827A641BD05D29001DA6C1 /* namegenTests */,
 				22827A6F1BD05D29001DA6C1 /* namegenUITests */,
@@ -106,10 +115,9 @@
 			children = (
 				22827A4B1BD05D29001DA6C1 /* AppDelegate.h */,
 				22827A4C1BD05D29001DA6C1 /* AppDelegate.m */,
-				22827A4E1BD05D29001DA6C1 /* FirstViewController.h */,
-				22827A4F1BD05D29001DA6C1 /* FirstViewController.m */,
-				22827A511BD05D29001DA6C1 /* SecondViewController.h */,
-				22827A521BD05D29001DA6C1 /* SecondViewController.m */,
+				22827A831BD060C3001DA6C1 /* rsc */,
+				22827A821BD05E4C001DA6C1 /* ViewControllers */,
+				22827A811BD05E42001DA6C1 /* Model */,
 				22827A541BD05D29001DA6C1 /* Main.storyboard */,
 				22827A571BD05D29001DA6C1 /* Assets.xcassets */,
 				22827A591BD05D29001DA6C1 /* LaunchScreen.storyboard */,
@@ -143,6 +151,26 @@
 				22827A721BD05D29001DA6C1 /* Info.plist */,
 			);
 			path = namegenUITests;
+			sourceTree = "<group>";
+		};
+		22827A811BD05E42001DA6C1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22827A871BD0673E001DA6C1 /* Model.h */,
+				22827A7E1BD05DF3001DA6C1 /* Model.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		22827A821BD05E4C001DA6C1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				22827A4E1BD05D29001DA6C1 /* FirstViewController.h */,
+				22827A4F1BD05D29001DA6C1 /* FirstViewController.m */,
+				22827A511BD05D29001DA6C1 /* SecondViewController.h */,
+				22827A521BD05D29001DA6C1 /* SecondViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +279,7 @@
 				22827A5B1BD05D29001DA6C1 /* LaunchScreen.storyboard in Resources */,
 				22827A581BD05D29001DA6C1 /* Assets.xcassets in Resources */,
 				22827A561BD05D29001DA6C1 /* Main.storyboard in Resources */,
+				22827A841BD060C3001DA6C1 /* rsc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +308,7 @@
 				22827A4D1BD05D29001DA6C1 /* AppDelegate.m in Sources */,
 				22827A501BD05D29001DA6C1 /* FirstViewController.m in Sources */,
 				22827A4A1BD05D29001DA6C1 /* main.m in Sources */,
+				22827A7F1BD05DF3001DA6C1 /* Model.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

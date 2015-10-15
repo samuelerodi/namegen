@@ -10,12 +10,17 @@
 
 @interface FirstViewController ()
 
+
 @end
 
 @implementation FirstViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    BaseModel *model=[[BaseModel alloc] init];
+    
+    [model sayHello];
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
