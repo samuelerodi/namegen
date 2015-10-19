@@ -17,6 +17,10 @@
 @implementation BaseModel
 
 - (void)sayHello {
-    NSLog(@"Hello, World!");
+    
+    NSString* path=@"engDict";
+    SMCDict* trial = [[SMCDict alloc] init];
+    [trial createDictTableFromDict:path];
+    return;
 }
 @end
