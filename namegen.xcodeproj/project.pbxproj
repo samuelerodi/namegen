@@ -20,6 +20,7 @@
 		22827A861BD061BA001DA6C1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22827A851BD061BA001DA6C1 /* Accelerate.framework */; };
 		22827A8A1BD461BA001DA6C1 /* SMCDict.m in Sources */ = {isa = PBXBuildFile; fileRef = 22827A891BD461BA001DA6C1 /* SMCDict.m */; settings = {ASSET_TAGS = (); }; };
 		22827A941BD46AD6001DA6C1 /* engDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22827A931BD46AD6001DA6C1 /* engDict.txt */; settings = {ASSET_TAGS = (); }; };
+		22827A971BD6FC67001DA6C1 /* MMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 22827A961BD6FC67001DA6C1 /* MMatrix.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		22827A881BD46182001DA6C1 /* SMCDict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMCDict.h; sourceTree = "<group>"; };
 		22827A891BD461BA001DA6C1 /* SMCDict.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCDict.m; sourceTree = "<group>"; };
 		22827A931BD46AD6001DA6C1 /* engDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = engDict.txt; path = resources/engDict.txt; sourceTree = "<group>"; };
+		22827A951BD6FC67001DA6C1 /* MMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMatrix.h; sourceTree = "<group>"; };
+		22827A961BD6FC67001DA6C1 /* MMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMatrix.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +165,8 @@
 			children = (
 				22827A881BD46182001DA6C1 /* SMCDict.h */,
 				22827A891BD461BA001DA6C1 /* SMCDict.m */,
+				22827A951BD6FC67001DA6C1 /* MMatrix.h */,
+				22827A961BD6FC67001DA6C1 /* MMatrix.m */,
 				22827A871BD0673E001DA6C1 /* Model.h */,
 				22827A7E1BD05DF3001DA6C1 /* Model.m */,
 			);
@@ -332,6 +337,7 @@
 				22827A8A1BD461BA001DA6C1 /* SMCDict.m in Sources */,
 				22827A4A1BD05D29001DA6C1 /* main.m in Sources */,
 				22827A7F1BD05DF3001DA6C1 /* Model.m in Sources */,
+				22827A971BD6FC67001DA6C1 /* MMatrix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 
 
 @interface SMCDict : NSObject
+@property (nonatomic) float matrix;
 
 - (void) createDictTableFromDict: (NSString*) dict;
 - (NSArray*) openDictionary: (NSString*) dict;

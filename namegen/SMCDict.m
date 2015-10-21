@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SMCDict.h"
+#import "MMatrix.h"
 
 @implementation SMCDict 
 
@@ -36,11 +37,31 @@
                                             @"s",@"t",@"u",@"v",@"w",@"x",@"y",@"z", nil];
 
     long n=[alphabet count];
-    NSMutableArray *table=[self matrix3DOfSize:n andFloat:0];
+
     
+    float matrix [n] [n] [n];
     
+    for (long cc=0; cc<n; cc++) {
+        for (long rr=0; rr<n; rr++) {
+            for (long hh=0; hh<n; hh++) {
+                matrix[hh][rr][cc]=cc+rr+hh;
+            }
+        }
+    }
+    
+
+    NSLog(@"%f, %f, %f", matrix[1][1][1], matrix[20][20][20], matrix[3][3][3]);
+    //Create 3D statistical table for letter probability and init at 0
+    MMatrix* table= [[MMatrix alloc] init];
+    
+    NSArray *sz = @[ @3, @3, @3];
+    [table initWithSize:@[@21, @2, @2] AndValue:@0.5];
+    [table initWithSize:sz AndValue:[NSNumber numberWithFloat:0.5]];
+    //[table matrix3DOfSize:n andFloat:0];
+    NSLog(@"%f", [table.matrix[1][1][1] floatValue] );
+
+    //Compute Statistical Relevance of the Dictionary passed
     NSArray* items=[self openDictionary:dict];
-    
     long str_len;
     char first;
     char last;
@@ -61,44 +82,11 @@
         
     }
     
-    NSLog(@"%f", [table[0][2][2] floatValue]);
+   // NSLog(@"%f", [table.matrix[0][2][2] floatValue]);
     
 }
 
-- (NSMutableArray*) matrix2DOfSize: (long) size andFloat: (float) value;
-    {
-        NSNumber *n=[NSNumber numberWithInteger:size];
-        NSMutableArray *cc=[[NSMutableArray alloc] initWithCapacity:[n longValue]];
-        NSMutableArray *table=[[NSMutableArray alloc] initWithCapacity:[n longValue]];
 
-        for (long ii=0; ii<=[n longValue]; ii++) {
-            [cc setObject:[NSNumber numberWithFloat:value] atIndexedSubscript:ii];
-        }
-
-        for (long ii=0; ii<=[n longValue]; ii++) {
-            [table setObject:cc atIndexedSubscript:ii];
-        }
-        return table;
-}
-       
-- (NSMutableArray*) matrix3DOfSize: (long) size andFloat: (float) value;
-{
-        NSNumber *n=[NSNumber numberWithInteger:size];
-        NSMutableArray *cc=[[NSMutableArray alloc] initWithCapacity:[n longValue]];
-        NSMutableArray *rr=[[NSMutableArray alloc] initWithCapacity:[n longValue]];
-        NSMutableArray *table=[[NSMutableArray alloc] initWithCapacity:[n longValue]];
-    
-        for (long ii=0; ii<=[n longValue]; ii++) {
-            [cc setObject:[NSNumber numberWithFloat:value] atIndexedSubscript:ii];
-        }
-        for (long ii=0; ii<=[n longValue]; ii++) {
-            [rr setObject:cc atIndexedSubscript:ii];
-        }
-        for (long ii=0; ii<=[n longValue]; ii++) {
-            [table setObject:rr atIndexedSubscript:ii];
-        }
-            return table;
-}
 
 
 @end
