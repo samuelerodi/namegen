@@ -10,6 +10,8 @@
 
 
 @implementation MMatrix
+
+////Initialization
 - (void) initWithSize: (NSArray*) sz {
     
     long dim=[sz count];
@@ -61,6 +63,7 @@
     
 }
 
+////Getter and Setter
 - (id) getValuesAtIndex: (NSArray  *) idx {
     NSArray* indexList=[self selectElementUsingIndex: idx];
     NSMutableArray* sz=[[NSMutableArray alloc] init];
@@ -84,19 +87,21 @@
     return TRUE;
 }
 
+
+////Basic Math Operation
 - (BOOL) addValue: (NSNumber *) val atIndex: (NSArray  *) idx  {
     NSArray* indexList=[self selectElementUsingIndex: idx];
     [self addValue: val forList:indexList];
     return TRUE;
 }
 
-- (BOOL) mulValue: (NSNumber *) val atIndex: (NSArray  *) idx  {
+- (BOOL) mulByValue: (NSNumber *) val atIndex: (NSArray  *) idx  {
     NSArray* indexList=[self selectElementUsingIndex: idx];
     [self mulValue: val forList:indexList];
     return TRUE;
 }
 
-- (BOOL) divValue: (NSNumber *) val atIndex: (NSArray  *) idx  {
+- (BOOL) divByValue: (NSNumber *) val atIndex: (NSArray  *) idx  {
     double temp=1/[val doubleValue];
     NSNumber* input=[NSNumber numberWithDouble:temp];
     NSArray* indexList=[self selectElementUsingIndex: idx];
@@ -105,6 +110,126 @@
 }
 
 
+- (BOOL) addValue: (NSNumber *) val  {
+    NSArray* indexList=[[NSArray alloc] init];
+    [self addValue: val forList:indexList];
+    return TRUE;
+}
+
+- (BOOL) mulByValue: (NSNumber *) val {
+    NSArray* indexList=[[NSArray alloc] init];
+    [self mulValue: val forList:indexList];
+    return TRUE;
+}
+
+- (BOOL) divByValue: (NSNumber *) val  {
+    double temp=1/[val doubleValue];
+    NSNumber* input=[NSNumber numberWithDouble:temp];
+    NSArray* indexList=[[NSArray alloc] init];
+    [self mulValue: input forList:indexList];
+    return TRUE;
+}
+
+
+- (double) sumOfElements {
+    NSArray* indexList=[[NSArray alloc] init];
+    return  [self sumElementsInList:indexList];
+}
+
+- (double) sumOfElementsAtIndex: (NSArray  *) idx  {
+    NSArray* indexList=[self selectElementUsingIndex: idx];
+    return  [self sumElementsInList:indexList];
+}
+
+
+
+////Matrix Operations
+- (double) vecDotProductWithMatrix: (MMatrix *) m {
+    [self checkMatrixDimensions:self with:m ];
+    double result=0;
+    for (long ii=0; ii<self.len; ii++) {
+        result+=([[self.matrix objectAtIndex:ii]doubleValue]*
+                 [[m.matrix objectAtIndex:ii]doubleValue]);
+    }
+    return result;
+}
+
+
+
+- (void) dotSumWithMatrix: (MMatrix *) m {
+    [self checkMatrixDimensions:self with:m ];
+    double result;
+    for (long ii=0; ii<self.len; ii++) {
+        result=[[self.matrix objectAtIndex:ii]doubleValue]+[[m.matrix objectAtIndex:ii]doubleValue];
+        [self.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+    }
+    return;
+}
+
+- (void) dotMulWithMatrix: (MMatrix *) m {
+    [self checkMatrixDimensions:self with:m ];
+    double result;
+    for (long ii=0; ii<self.len; ii++) {
+        result=[[self.matrix objectAtIndex:ii]doubleValue]*[[m.matrix objectAtIndex:ii]doubleValue];
+        [self.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+    }
+    return;
+}
+
+- (void) dotDivByMatrix: (MMatrix *) m {
+    [self checkMatrixDimensions:self with:m ];
+    double result;
+    for (long ii=0; ii<self.len; ii++) {
+        result=[[self.matrix objectAtIndex:ii]doubleValue]/[[m.matrix objectAtIndex:ii]doubleValue];
+        [self.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+    }
+    return;
+}
+
+
+- (MMatrix *) dotSumMatrixA: (MMatrix *) m1 withMatrixB:(MMatrix *) m2 {
+    [self checkMatrixDimensions:m1 with:m2 ];
+    MMatrix *mout=[MMatrix alloc];
+    [mout initWithSize:m1.size];
+    mout.matrix= [[NSMutableArray alloc] initWithCapacity:m1.len];
+    double result;
+    for (long ii=0; ii<m1.len; ii++) {
+        result=[[m1.matrix objectAtIndex:ii]doubleValue]+[[m2.matrix objectAtIndex:ii]doubleValue];
+        [mout.matrix addObject:[NSNumber numberWithDouble:result]];
+    }
+    return mout;
+}
+
+- (MMatrix *) dotMulMatrixA: (MMatrix *) m1 withMatrixB:(MMatrix *) m2{
+    [self checkMatrixDimensions:m1 with:m2 ];
+    MMatrix *mout=[MMatrix alloc];
+    [mout initWithSize:m1.size];
+    mout.matrix= [[NSMutableArray alloc] initWithCapacity:m1.len];
+    double result;
+    for (long ii=0; ii<m1.len; ii++) {
+        result=[[m1.matrix objectAtIndex:ii]doubleValue]*[[m2.matrix objectAtIndex:ii]doubleValue];
+        [mout.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+    }
+    return mout;
+}
+
+- (MMatrix *) dotDivMatrixA: (MMatrix *) m1 byMatrixB:(MMatrix *) m2{
+    [self checkMatrixDimensions:m1 with:m2 ];
+    MMatrix *mout=[MMatrix alloc];
+    [mout initWithSize:m1.size];
+    mout.matrix= [[NSMutableArray alloc] initWithCapacity:m1.len];    
+    double result;
+    for (long ii=0; ii<m1.len; ii++) {
+        result=[[m1.matrix objectAtIndex:ii]doubleValue]/[[m2.matrix objectAtIndex:ii]doubleValue];
+        [mout.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+    }
+    return mout;
+}
+
+
+
+
+////Tools
 - (NSArray *) getIndexofElement: (long) number {
     NSArray *outv;
     NSMutableArray *index=[[NSMutableArray alloc] initWithCapacity: self.dim];
@@ -120,7 +245,7 @@
     }
     long idx, division, modulo;
     long residual=number;
-
+    
     for (long ii=0; ii<self.dim; ii++) {
         idx=self.dim-ii-1;
         division=residual / [self.step[idx] longValue];
@@ -132,18 +257,6 @@
     outv=index;
     return outv;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 //PRIVATE METHOD
 
@@ -250,6 +363,27 @@
     return index;
 }
 
+- (void) checkMatrixDimensions: (MMatrix *) m1 with: (MMatrix *) m2 {
+    if (m1.dim!=m2.dim) {
+        NSException *e = [NSException
+                          exceptionWithName:NSRangeException
+                          reason:@"MMatrix: Matrix dimensions does not match in dotMulMatrixA withMatrixB"
+                          userInfo:nil];
+        @throw e;
+        return;
+    }
+    for (int ii=0; ii<m1.dim; ii++) {
+        if ([[m1.size objectAtIndex:ii] longValue]!=[[m2.size objectAtIndex:ii] longValue]) {
+            NSException *e = [NSException
+                              exceptionWithName:NSRangeException
+                              reason:@"MMatrix: Matrixes have different size in dotMulMatrixA withMatrixB"
+                              userInfo:nil];
+            @throw e;
+            return;
+        }
+    }
+    return;
+}
 
 
 - (void) mulValue: (NSNumber *) val forList:(NSArray *) list {
@@ -287,6 +421,21 @@
     }
     return;
 }
+
+- (double) sumElementsInList:(NSArray *) list {
+    double temp=0;
+    if ([list count]==0) {
+        for (NSNumber *element in self.matrix) {
+            temp+=[element doubleValue];
+        }
+    } else {
+        for(NSNumber *element in list){
+            temp+=[[self.matrix objectAtIndex:[element longValue]] doubleValue];
+        }
+    }
+    return temp;
+}
+
 
 
 - (NSNumber *) vecMulv1:(NSArray *) array1 v2: (NSArray *) array2 {

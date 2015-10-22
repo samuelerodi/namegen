@@ -16,14 +16,37 @@
 @property (nonatomic) long len;
 @property (nonatomic, strong) NSArray* step;
 
-
+////Initialization
 - (void) initWithSize: (NSArray*) sz;
 - (void) initWithSize: (NSArray*) sz AndValue: (NSNumber*) val;
+
+////Getter and Setter
 - (id) getValuesAtIndex: (NSArray  *) idx;
 - (BOOL) setValue: (NSNumber *) val atIndex: (NSArray  *) idx;
+
+////Basic Math Operation
+- (BOOL) addValue: (NSNumber *) val;
 - (BOOL) addValue: (NSNumber *) val atIndex: (NSArray  *) idx;
-- (BOOL) mulValue: (NSNumber *) val atIndex: (NSArray  *) idx;
-- (BOOL) divValue: (NSNumber *) val atIndex: (NSArray  *) idx;
+- (BOOL) mulByValue: (NSNumber *) val;
+- (BOOL) mulByValue: (NSNumber *) val atIndex: (NSArray  *) idx;
+- (BOOL) divByValue: (NSNumber *) val;
+- (BOOL) divByValue: (NSNumber *) val atIndex: (NSArray  *) idx;
+
+- (double) sumOfElements;
+- (double) sumOfElementsAtIndex: (NSArray  *) idx;
+
+////Matrix Operations
+- (double) vecDotProductWithMatrix: (MMatrix *) m;
+- (void) dotSumWithMatrix: (MMatrix *) m;
+- (void) dotMulWithMatrix: (MMatrix *) m;
+- (void) dotDivByMatrix: (MMatrix *) m;
+- (MMatrix *) dotSumMatrixA: (MMatrix *) m1 withMatrixB:(MMatrix *) m2;
+- (MMatrix *) dotMulMatrixA: (MMatrix *) m1 withMatrixB:(MMatrix *) m2;
+- (MMatrix *) dotDivMatrixA: (MMatrix *) m1 byMatrixB:(MMatrix *) m2;
+
+////Tools
 - (NSArray *) getIndexofElement: (long) number;
+
+
 
 @end

@@ -54,22 +54,16 @@
     //Create 3D statistical table for letter probability and init at 0
     MMatrix* table= [[MMatrix alloc] init];
     MMatrix* result=[[MMatrix alloc] init];
+    double res=0;
 
-    [table initWithSize:@[@3, @3, @3] AndValue:@0];
-
+    [table initWithSize:@[@3, @3, @3] AndValue:@1];
+ 
 
     [table setValue:@1 atIndex:@[@-1, @-1, @-1]];
-    result=[table getValuesAtIndex:@[@1, @-1, @-1]];
-//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
-//    [table mulValue:@2 atIndex:@[@1, @-1, @1]];
-//    result=[table getValuesAtIndex:@[@1, @-1, @1]];
-//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
-//    [table addValue:@1 atIndex:@[@1, @-1, @1]];
-//    result=[table getValuesAtIndex:@[@1, @-1, @1]];
-//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
-//    [table divValue:@3 atIndex:@[@1, @-1, @1]];
-//    result=[table getValuesAtIndex:@[@1, @-1, @1]];
-//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
+    [table mulByValue:@2];
+    [table dotSumWithMatrix:table];
+    result=[[MMatrix alloc] dotDivMatrixA:table byMatrixB:table];
+
 
     //Compute Statistical Relevance of the Dictionary passed
     NSArray* items=[self openDictionary:dict];
