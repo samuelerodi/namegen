@@ -53,12 +53,23 @@
     NSLog(@"%f, %f, %f", matrix[1][1][1], matrix[20][20][20], matrix[3][3][3]);
     //Create 3D statistical table for letter probability and init at 0
     MMatrix* table= [[MMatrix alloc] init];
-    
-    NSArray *sz = @[ @3, @3, @3];
-    [table initWithSize:@[@21, @2, @2] AndValue:@0.5];
-    [table initWithSize:sz AndValue:[NSNumber numberWithFloat:0.5]];
-    //[table matrix3DOfSize:n andFloat:0];
-    NSLog(@"%f", [table.matrix[1][1][1] floatValue] );
+    MMatrix* result=[[MMatrix alloc] init];
+
+    [table initWithSize:@[@3, @3, @3] AndValue:@0];
+
+
+    [table setValue:@1 atIndex:@[@-1, @-1, @-1]];
+    result=[table getValuesAtIndex:@[@1, @-1, @-1]];
+//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
+//    [table mulValue:@2 atIndex:@[@1, @-1, @1]];
+//    result=[table getValuesAtIndex:@[@1, @-1, @1]];
+//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
+//    [table addValue:@1 atIndex:@[@1, @-1, @1]];
+//    result=[table getValuesAtIndex:@[@1, @-1, @1]];
+//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
+//    [table divValue:@3 atIndex:@[@1, @-1, @1]];
+//    result=[table getValuesAtIndex:@[@1, @-1, @1]];
+//    result=[table getValuesAtIndex:@[@1, @1, @-1]];
 
     //Compute Statistical Relevance of the Dictionary passed
     NSArray* items=[self openDictionary:dict];

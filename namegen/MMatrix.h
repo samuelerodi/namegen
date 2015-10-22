@@ -10,13 +10,20 @@
 
 @interface MMatrix : NSObject
 
-@property (nonatomic, weak) NSMutableArray* matrix;
+@property (nonatomic, strong) NSMutableArray* matrix;
 @property (nonatomic) long dim;
-@property (nonatomic, weak) NSArray* size;
+@property (nonatomic, strong) NSArray* size;
+@property (nonatomic) long len;
+@property (nonatomic, strong) NSArray* step;
 
+
+- (void) initWithSize: (NSArray*) sz;
 - (void) initWithSize: (NSArray*) sz AndValue: (NSNumber*) val;
-- (NSNumber *) getValueAtIndex: (NSArray  *) idx;
+- (id) getValuesAtIndex: (NSArray  *) idx;
 - (BOOL) setValue: (NSNumber *) val atIndex: (NSArray  *) idx;
-
+- (BOOL) addValue: (NSNumber *) val atIndex: (NSArray  *) idx;
+- (BOOL) mulValue: (NSNumber *) val atIndex: (NSArray  *) idx;
+- (BOOL) divValue: (NSNumber *) val atIndex: (NSArray  *) idx;
+- (NSArray *) getIndexofElement: (long) number;
 
 @end
