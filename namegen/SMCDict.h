@@ -6,10 +6,16 @@
 //  Copyright © 2015 Samuele Rodi. All rights reserved.
 //
 
-
+#import "MMatrix.h"
 
 @interface SMCDict : NSObject
-@property (nonatomic) float matrix;
+
+@property (nonatomic) NSArray *alphabet;
+@property (nonatomic) long alphaCount;
+@property (nonatomic) MMatrix *smcTable;
+@property (nonatomic) MMatrix *smcInitials;
+@property (nonatomic) MMatrix *smcFinals;
+@property (nonatomic) float smcAvgLength;
 
 - (void) createDictTableFromDict: (NSString*) dict;
 - (NSArray*) openDictionary: (NSString*) dict;

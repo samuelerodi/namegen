@@ -32,11 +32,11 @@
 - (BOOL) divByValue: (NSNumber *) val;
 - (BOOL) divByValue: (NSNumber *) val atIndex: (NSArray  *) idx;
 
-- (double) sumOfElements;
-- (double) sumOfElementsAtIndex: (NSArray  *) idx;
+- (float) sumOfElements;
+- (float) sumOfElementsAtIndex: (NSArray  *) idx;
 
 ////Matrix Operations
-- (double) vecDotProductWithMatrix: (MMatrix *) m;
+- (float) vecDotProductWithMatrix: (MMatrix *) m;
 - (void) dotSumWithMatrix: (MMatrix *) m;
 - (void) dotMulWithMatrix: (MMatrix *) m;
 - (void) dotDivByMatrix: (MMatrix *) m;
@@ -46,6 +46,7 @@
 
 ////Tools
 - (NSArray *) getIndexofElement: (long) number;
+- (void) printMatrixAtIndex:(NSArray  *) idx;
 
 
 

@@ -102,8 +102,8 @@
 }
 
 - (BOOL) divByValue: (NSNumber *) val atIndex: (NSArray  *) idx  {
-    double temp=1/[val doubleValue];
-    NSNumber* input=[NSNumber numberWithDouble:temp];
+    float temp=1/[val floatValue];
+    NSNumber* input=[NSNumber numberWithFloat:temp];
     NSArray* indexList=[self selectElementUsingIndex: idx];
     [self mulValue: input forList:indexList];
     return TRUE;
@@ -123,20 +123,20 @@
 }
 
 - (BOOL) divByValue: (NSNumber *) val  {
-    double temp=1/[val doubleValue];
-    NSNumber* input=[NSNumber numberWithDouble:temp];
+    float temp=1/[val floatValue];
+    NSNumber* input=[NSNumber numberWithFloat:temp];
     NSArray* indexList=[[NSArray alloc] init];
     [self mulValue: input forList:indexList];
     return TRUE;
 }
 
 
-- (double) sumOfElements {
+- (float) sumOfElements {
     NSArray* indexList=[[NSArray alloc] init];
     return  [self sumElementsInList:indexList];
 }
 
-- (double) sumOfElementsAtIndex: (NSArray  *) idx  {
+- (float) sumOfElementsAtIndex: (NSArray  *) idx  {
     NSArray* indexList=[self selectElementUsingIndex: idx];
     return  [self sumElementsInList:indexList];
 }
@@ -144,12 +144,12 @@
 
 
 ////Matrix Operations
-- (double) vecDotProductWithMatrix: (MMatrix *) m {
+- (float) vecDotProductWithMatrix: (MMatrix *) m {
     [self checkMatrixDimensions:self with:m ];
-    double result=0;
+    float result=0;
     for (long ii=0; ii<self.len; ii++) {
-        result+=([[self.matrix objectAtIndex:ii]doubleValue]*
-                 [[m.matrix objectAtIndex:ii]doubleValue]);
+        result+=([[self.matrix objectAtIndex:ii]floatValue]*
+                 [[m.matrix objectAtIndex:ii]floatValue]);
     }
     return result;
 }
@@ -158,30 +158,30 @@
 
 - (void) dotSumWithMatrix: (MMatrix *) m {
     [self checkMatrixDimensions:self with:m ];
-    double result;
+    float result;
     for (long ii=0; ii<self.len; ii++) {
-        result=[[self.matrix objectAtIndex:ii]doubleValue]+[[m.matrix objectAtIndex:ii]doubleValue];
-        [self.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+        result=[[self.matrix objectAtIndex:ii]floatValue]+[[m.matrix objectAtIndex:ii]floatValue];
+        [self.matrix setObject:[NSNumber numberWithFloat:result] atIndexedSubscript:ii];
     }
     return;
 }
 
 - (void) dotMulWithMatrix: (MMatrix *) m {
     [self checkMatrixDimensions:self with:m ];
-    double result;
+    float result;
     for (long ii=0; ii<self.len; ii++) {
-        result=[[self.matrix objectAtIndex:ii]doubleValue]*[[m.matrix objectAtIndex:ii]doubleValue];
-        [self.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+        result=[[self.matrix objectAtIndex:ii]floatValue]*[[m.matrix objectAtIndex:ii]floatValue];
+        [self.matrix setObject:[NSNumber numberWithFloat:result] atIndexedSubscript:ii];
     }
     return;
 }
 
 - (void) dotDivByMatrix: (MMatrix *) m {
     [self checkMatrixDimensions:self with:m ];
-    double result;
+    float result;
     for (long ii=0; ii<self.len; ii++) {
-        result=[[self.matrix objectAtIndex:ii]doubleValue]/[[m.matrix objectAtIndex:ii]doubleValue];
-        [self.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+        result=[[self.matrix objectAtIndex:ii]floatValue]/[[m.matrix objectAtIndex:ii]floatValue];
+        [self.matrix setObject:[NSNumber numberWithFloat:result] atIndexedSubscript:ii];
     }
     return;
 }
@@ -192,10 +192,10 @@
     MMatrix *mout=[MMatrix alloc];
     [mout initWithSize:m1.size];
     mout.matrix= [[NSMutableArray alloc] initWithCapacity:m1.len];
-    double result;
+    float result;
     for (long ii=0; ii<m1.len; ii++) {
-        result=[[m1.matrix objectAtIndex:ii]doubleValue]+[[m2.matrix objectAtIndex:ii]doubleValue];
-        [mout.matrix addObject:[NSNumber numberWithDouble:result]];
+        result=[[m1.matrix objectAtIndex:ii]floatValue]+[[m2.matrix objectAtIndex:ii]floatValue];
+        [mout.matrix addObject:[NSNumber numberWithFloat:result]];
     }
     return mout;
 }
@@ -205,10 +205,10 @@
     MMatrix *mout=[MMatrix alloc];
     [mout initWithSize:m1.size];
     mout.matrix= [[NSMutableArray alloc] initWithCapacity:m1.len];
-    double result;
+    float result;
     for (long ii=0; ii<m1.len; ii++) {
-        result=[[m1.matrix objectAtIndex:ii]doubleValue]*[[m2.matrix objectAtIndex:ii]doubleValue];
-        [mout.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+        result=[[m1.matrix objectAtIndex:ii]floatValue]*[[m2.matrix objectAtIndex:ii]floatValue];
+        [mout.matrix setObject:[NSNumber numberWithFloat:result] atIndexedSubscript:ii];
     }
     return mout;
 }
@@ -218,14 +218,24 @@
     MMatrix *mout=[MMatrix alloc];
     [mout initWithSize:m1.size];
     mout.matrix= [[NSMutableArray alloc] initWithCapacity:m1.len];    
-    double result;
+    float result;
     for (long ii=0; ii<m1.len; ii++) {
-        result=[[m1.matrix objectAtIndex:ii]doubleValue]/[[m2.matrix objectAtIndex:ii]doubleValue];
-        [mout.matrix setObject:[NSNumber numberWithDouble:result] atIndexedSubscript:ii];
+        result=[[m1.matrix objectAtIndex:ii]floatValue]/[[m2.matrix objectAtIndex:ii]floatValue];
+        [mout.matrix setObject:[NSNumber numberWithFloat:result] atIndexedSubscript:ii];
     }
     return mout;
 }
 
+- (void) printMatrixAtIndex:(NSArray  *) idx  {
+    NSArray* indexList=[self selectElementUsingIndex: idx];
+    NSLog(@"\nMatrix at selected index:\n\n");
+    float number;
+    for (long ii=0; ii<[indexList count]; ii++) {
+        number=[[self.matrix objectAtIndex:[[indexList objectAtIndex:ii] longValue]] floatValue];
+        printf("%f\t", number);
+    }
+    return;
+}
 
 
 
@@ -387,16 +397,16 @@
 
 
 - (void) mulValue: (NSNumber *) val forList:(NSArray *) list {
-    double temp;
+    float temp;
     if ([list count]==0) {
         for (long ii=0; ii<self.len; ii++) {
-            temp=[[self.matrix objectAtIndex:ii] doubleValue]*[val doubleValue];
-            [self.matrix setObject:[NSNumber numberWithDouble:temp] atIndexedSubscript:ii];
+            temp=[[self.matrix objectAtIndex:ii] floatValue]*[val floatValue];
+            [self.matrix setObject:[NSNumber numberWithFloat:temp] atIndexedSubscript:ii];
         }
     } else {
         for(NSNumber *element in list){
-            temp=[[self.matrix objectAtIndex:[element longValue]] doubleValue]*[val doubleValue];
-            [self.matrix setObject:[NSNumber numberWithDouble:temp]
+            temp=[[self.matrix objectAtIndex:[element longValue]] floatValue]*[val floatValue];
+            [self.matrix setObject:[NSNumber numberWithFloat:temp]
                 atIndexedSubscript:[element longValue]];
         }
     }
@@ -406,31 +416,31 @@
 
 
 - (void) addValue: (NSNumber *) val forList:(NSArray *) list {
-    double temp;
+    float temp;
     if ([list count]==0) {
         for (long ii=0; ii<self.len; ii++) {
-            temp=[[self.matrix objectAtIndex:ii] doubleValue] +[val doubleValue];
-            [self.matrix setObject:[NSNumber numberWithDouble:temp] atIndexedSubscript:ii];
+            temp=[[self.matrix objectAtIndex:ii] floatValue] +[val floatValue];
+            [self.matrix setObject:[NSNumber numberWithFloat:temp] atIndexedSubscript:ii];
         }
     } else {
         for(NSNumber *element in list){
-            temp=[[self.matrix objectAtIndex:[element longValue]] doubleValue] +[val doubleValue];
-            [self.matrix setObject:[NSNumber numberWithDouble:temp]
+            temp=[[self.matrix objectAtIndex:[element longValue]] floatValue] +[val floatValue];
+            [self.matrix setObject:[NSNumber numberWithFloat:temp]
                 atIndexedSubscript:[element longValue]];
         }
     }
     return;
 }
 
-- (double) sumElementsInList:(NSArray *) list {
-    double temp=0;
+- (float) sumElementsInList:(NSArray *) list {
+    float temp=0;
     if ([list count]==0) {
         for (NSNumber *element in self.matrix) {
-            temp+=[element doubleValue];
+            temp+=[element floatValue];
         }
     } else {
         for(NSNumber *element in list){
-            temp+=[[self.matrix objectAtIndex:[element longValue]] doubleValue];
+            temp+=[[self.matrix objectAtIndex:[element longValue]] floatValue];
         }
     }
     return temp;
@@ -439,12 +449,12 @@
 
 
 - (NSNumber *) vecMulv1:(NSArray *) array1 v2: (NSArray *) array2 {
-    double result=0;
+    float result=0;
     for (int ii=0; ii<[array1 count]; ii++) {
-        result=result+ [array1[ii] doubleValue] * [array2[ii] doubleValue];
+        result=result+ [array1[ii] floatValue] * [array2[ii] floatValue];
     }
     
-    return [NSNumber numberWithDouble:result];
+    return [NSNumber numberWithFloat:result];
 }
 
 - (void) setObject: (NSNumber *) val forList:(NSArray *) list {
