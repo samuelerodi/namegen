@@ -17,9 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    BaseModel *model=[[BaseModel alloc] init];
+    self.model=[[BaseModel alloc] init];
     
-    [model sayHello];
+    [self.model sayHello];
     
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -29,4 +29,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (IBAction)generateRN:(UIButton *)sender {
+    [self.displayResult setText:  [self.model generate]];
+    
+}
 @end

@@ -8,11 +8,13 @@
 
 #import "SMCDict.h"
 
-@interface BaseModel : NSObject
+@interface BaseModel : NSObject 
 
-    @property NSString *firstName;
-    @property NSString *lastName;
+@property NSString *firstName;
+@property NSString *lastName;
+@property (nonatomic) SMCDict *smcDict;
 
 - (void)sayHello;
+- (NSString *) generate;
 
 @end

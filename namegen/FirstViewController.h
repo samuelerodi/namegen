@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Model.h"
 @interface FirstViewController : UIViewController
+@property (nonatomic) BaseModel * model;
+
+
+- (IBAction)generateRN:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UILabel *displayResult;
+
+
 
 
 @end

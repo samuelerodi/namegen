@@ -230,10 +230,19 @@
     NSArray* indexList=[self selectElementUsingIndex: idx];
     NSLog(@"\nMatrix at selected index:\n\n");
     float number;
-    for (long ii=0; ii<[indexList count]; ii++) {
-        number=[[self.matrix objectAtIndex:[[indexList objectAtIndex:ii] longValue]] floatValue];
-        printf("%f\t", number);
+    if ([indexList count]) {
+        for (long ii=0; ii<[indexList count]; ii++) {
+            number=[[self.matrix objectAtIndex:[[indexList objectAtIndex:ii] longValue]] floatValue];
+            printf("%f\t", number);
+        }
+    } else {
+        for (long ii=0; ii<self.len; ii++) {
+            number=[[self.matrix objectAtIndex:ii] floatValue];
+            printf("%f\t", number);
+        }
     }
+
+    
     return;
 }
 
@@ -489,6 +498,27 @@
     return outM;
 }
 
+#pragma  mark   Storage
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:self.matrix forKey:@"matrix"];
+    [encoder encodeObject:self.size forKey:@"size"];
+    [encoder encodeObject:self.step forKey:@"step"];
+    [encoder encodeInteger:self.dim forKey:@"dim"];
+    [encoder encodeInteger:self.len forKey:@"len"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.matrix = [decoder decodeObjectForKey:@"matrix"];
+        self.size = [decoder decodeObjectForKey:@"size"];
+        self.step = [decoder decodeObjectForKey:@"step"];
+        self.dim  = [decoder decodeIntegerForKey:@"dim"];
+        self.len  = [decoder decodeIntegerForKey:@"len"];
+    }
+    return self;
+}
 
 @end

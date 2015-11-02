@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MMatrix : NSObject
+@interface MMatrix : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSMutableArray* matrix;
 @property (nonatomic) long dim;

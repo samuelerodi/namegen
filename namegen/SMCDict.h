@@ -8,7 +8,7 @@
 
 #import "MMatrix.h"
 
-@interface SMCDict : NSObject
+@interface SMCDict : NSObject <NSCoding>
 
 @property (nonatomic) NSArray *alphabet;
 @property (nonatomic) long alphaCount;
@@ -16,7 +16,9 @@
 @property (nonatomic) MMatrix *smcInitials;
 @property (nonatomic) MMatrix *smcFinals;
 @property (nonatomic) float smcAvgLength;
+@property (nonatomic) float smcLenStDev;
 
 - (void) createDictTableFromDict: (NSString*) dict;
 - (NSArray*) openDictionary: (NSString*) dict;
+- (NSString *) randomGeneratedName;
 @end

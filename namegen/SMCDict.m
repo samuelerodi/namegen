@@ -70,6 +70,7 @@
     NSArray* items=[self openDictionary:dict];
     long n_ItemsInDict=0;
     long str_len;
+    float len_stdev=0;
     char first, last, current, prev, pprev;
 
     NSNumber *idx, *cc, *rr, *hh;
@@ -77,6 +78,7 @@
     
     for (NSString *item in items) {
         str_len=[item length]-1;
+        len_stdev+=str_len*str_len;
         
         if (str_len>1) {
             n_ItemsInDict++;
@@ -105,9 +107,7 @@
                 } else {
                     [self.smcTable addValue:@1 atIndex:@[cc,rr,secIdx]];
                 }
-  
             }
-            
         }
     }
     
@@ -124,25 +124,11 @@
     [self.smcInitials divByValue:[NSNumber numberWithLong:n_ItemsInDict]];
     [self.smcFinals   divByValue:[NSNumber numberWithLong:n_ItemsInDict]];
     self.smcAvgLength=self.smcAvgLength/n_ItemsInDict;
+    self.smcLenStDev=sqrt((len_stdev/n_ItemsInDict)-self.smcAvgLength*self.smcAvgLength);
     
     
     
-    float test;
-    test=[self.smcTable sumOfElementsAtIndex:@[@-1, @3, @4]];
-    [self.smcFinals printMatrixAtIndex:@[@-1]];
-    test=[self.smcInitials sumOfElementsAtIndex:@[@-1]];
-    test=[self.smcFinals sumOfElementsAtIndex:@[@-1]];
-    [self.smcTable printMatrixAtIndex:@[@-1, @4, @2]];
-    
-    
-    NSString *testname = [self randomGeneratedName];
-    
-    
-    for (int ii=0; ii<20; ii++) {
-        testname = [self randomGeneratedName];
-        NSLog(@"%@", testname);
-    }
-    NSLog(@"\nAverage Length: %f" , self.smcAvgLength);
+
 
     
 }
@@ -168,11 +154,11 @@
 
 - (NSString *) randomGeneratedName {
     NSMutableString *output=[[NSMutableString alloc] init];
-    int len= arc4random_uniform((int) self.smcAvgLength)+2;
+    int len= self.smcAvgLength + ((((float)rand() / RAND_MAX)*2)- 0.5)* 1.5 * self.smcLenStDev;
     MMatrix *buildVector=[[MMatrix alloc ] init];
-    NSNumber *idx, *rr, *hh;
+    NSNumber *rr, *hh;
     NSNumber *secIdx=[NSNumber numberWithLong:self.alphaCount];
-    char first, last, current, prev, pprev;
+    char current, prev, pprev;
     float ran;
     
     for (int ii=0; ii<len; ii++) {
@@ -241,6 +227,37 @@
     return output;
 }
 
+
+
+#pragma  mark   Storage
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:self.alphabet forKey:@"alphabet"];
+    [encoder encodeObject:self.smcTable forKey:@"smcTable"];
+    [encoder encodeObject:self.smcInitials forKey:@"smcInitials"];
+    [encoder encodeObject:self.smcFinals forKey:@"smcFinals"];
+    [encoder encodeFloat:self.smcLenStDev forKey:@"smcLenStDev"];
+    [encoder encodeFloat:self.smcAvgLength forKey:@"smcAvgLength"];
+    [encoder encodeInteger:self.alphaCount forKey:@"alphaCount"];
+
+    
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.alphabet = [decoder decodeObjectForKey:@"alphabet"];
+        self.smcTable = [decoder decodeObjectForKey:@"smcTable"];
+        self.smcInitials = [decoder decodeObjectForKey:@"smcInitials"];
+        self.smcFinals= [decoder decodeObjectForKey:@"smcFinals"];
+        self.smcAvgLength= [decoder decodeFloatForKey:@"smcAvgLength"];
+        self.smcLenStDev = [decoder decodeFloatForKey:@"smcLenStDev"];
+        self.alphaCount= [decoder decodeIntegerForKey:@"alphaCount"];
+        
+    }
+    return self;
+}
 
 @end
 
