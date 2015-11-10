@@ -17,6 +17,7 @@
         self.alphabet=[NSArray arrayWithObjects:@"a",@"b",@"c",@"d",@"e",@"f",@"g",@"h",@"i",
                            @"j",@"k",@"l",@"m",@"n",@"o",@"p",@"q",@"r",
                            @"s",@"t",@"u",@"v",@"w",@"x",@"y",@"z", nil];
+
     } else {
         self.alphabet=alphabet;
     }
@@ -154,7 +155,7 @@
 
 - (NSString *) randomGeneratedName {
     NSMutableString *output=[[NSMutableString alloc] init];
-    int len= self.smcAvgLength + ((((float)rand() / RAND_MAX)*2)- 0.5)* 1.5 * self.smcLenStDev;
+    int len= self.smcAvgLength + ((((float)arc4random_uniform (RAND_MAX) / RAND_MAX)*2)- 0.5)* 1.5 * self.smcLenStDev;
     MMatrix *buildVector=[[MMatrix alloc ] init];
     NSNumber *rr, *hh;
     NSNumber *secIdx=[NSNumber numberWithLong:self.alphaCount];
@@ -162,7 +163,7 @@
     float ran;
     
     for (int ii=0; ii<len; ii++) {
-        ran = ((float)rand() / RAND_MAX);
+        ran = ((float)arc4random_uniform (RAND_MAX)/ RAND_MAX);
         switch (ii) {
             case 0:
                 buildVector=self.smcInitials;
